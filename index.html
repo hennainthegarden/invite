@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f4eadb">
+  <title>İrem Gökçe'nin Kına Eğlencesi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ANA DAVETİYE -->
+  <main class="image-page invitation-page" id="invitationPage">
+    <div class="image-blur-bg invitation-bg" aria-hidden="true"></div>
+    <img class="full-image" src="assets/davetiye.jpg"
+         alt="İrem Gökçe'nin Kına Eğlencesi davetiyesi">
+
+    <button class="seal-button" id="menuSeal" type="button"
+            aria-label="Davet menüsünü aç" aria-expanded="false">
+      <svg class="seal-key" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M18 20c0-6 5-10 11-10s11 4 11 10-5 10-11 10-11-4-11-10Z"></path>
+        <circle cx="29" cy="20" r="4"></circle>
+        <path d="M29 30v19"></path>
+        <path d="M29 39h12"></path>
+        <path d="M36 39v6"></path>
+        <path d="M41 39v4"></path>
+        <path d="M25 49h8"></path>
+        <path d="M23 15c2-3 4-5 6-5"></path>
+        <path d="M35 15c-2-3-4-5-6-5"></path>
+      </svg>
+    </button>
+  </main>
+
+  <div class="glass-backdrop" id="menuBackdrop"></div>
+
+  <aside class="glass-sheet" id="actionSheet" aria-hidden="true">
+    <div class="sheet-handle"></div>
+
+    <header class="sheet-header">
+      <div>
+        <h1>İrem Gökçe'nin Kına Eğlencesi</h1>
+        <p class="event-line">30 Ağustos 2025 • Saat 20.00</p>
+      </div>
+      <button class="round-close" id="menuClose" type="button" aria-label="Kapat">×</button>
+    </header>
+
+    <div class="action-list">
+      <a class="action-row" target="_blank" rel="noopener"
+         href="https://www.google.com/maps/search/?api=1&query=Seyrek+G%C3%B6l+Hobi+Park%2C+G%C3%BCnerli+Mah.+9+Eyl%C3%BCl+Cd.+No%3A108-1%2C+35665+Menemen%2F%C4%B0zmir">
+        <span class="action-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55">
+            <path d="M12 21s6-5.4 6-11a6 6 0 1 0-12 0c0 5.6 6 11 6 11Z"/>
+            <circle cx="12" cy="10" r="2.2"/>
+          </svg>
+        </span>
+        <span class="action-copy">
+          <strong>Yol Tarifi</strong>
+          <small>Seyrek Göl Hobi Park</small>
+        </span>
+        <span class="chevron">›</span>
+      </a>
+
+      <a class="action-row" href="irem-gokce-kina.ics" download>
+        <span class="action-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55">
+            <rect x="3.5" y="5" width="17" height="15" rx="2.5"/>
+            <path d="M7 3v4M17 3v4M3.5 9.5h17"/>
+          </svg>
+        </span>
+        <span class="action-copy">
+          <strong>Takvime Ekle</strong>
+          <small>30 Ağustos 2025 · 20.00</small>
+        </span>
+        <span class="chevron">›</span>
+      </a>
+
+      <button class="action-row" id="goToRsvp" type="button">
+        <span class="action-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.55">
+            <rect x="3.5" y="5.5" width="17" height="13" rx="2.3"/>
+            <path d="m4.5 7 7.5 5.5L19.5 7"/>
+          </svg>
+        </span>
+        <span class="action-copy">
+          <strong>Katılım Bildir</strong>
+          <small>Ad Soyad ve katılım durumu</small>
+        </span>
+        <span class="chevron">›</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- AVLU / KATILIM SAYFASI -->
+  <section class="image-page courtyard-page" id="courtyardPage" aria-hidden="true">
+    <div class="image-blur-bg courtyard-bg" aria-hidden="true"></div>
+    <img class="full-image" src="assets/avlu.jpg" alt="Avlu">
+
+    <button class="back-button" id="backToInvitation" type="button">
+      <span>←</span> Davetiyeye Dön
+    </button>
+
+    <button class="seal-button courtyard-seal" id="formSeal" type="button"
+            aria-label="Katılım formunu aç" aria-expanded="false">
+      <svg class="seal-key" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M18 20c0-6 5-10 11-10s11 4 11 10-5 10-11 10-11-4-11-10Z"></path>
+        <circle cx="29" cy="20" r="4"></circle>
+        <path d="M29 30v19"></path>
+        <path d="M29 39h12"></path>
+        <path d="M36 39v6"></path>
+        <path d="M41 39v4"></path>
+        <path d="M25 49h8"></path>
+        <path d="M23 15c2-3 4-5 6-5"></path>
+        <path d="M35 15c-2-3-4-5-6-5"></path>
+      </svg>
+    </button>
+  </section>
+
+  <div class="glass-backdrop form-backdrop" id="formBackdrop"></div>
+
+  <aside class="glass-sheet form-sheet" id="formSheet" aria-hidden="true">
+    <div class="sheet-handle"></div>
+
+    <div id="formView">
+      <header class="sheet-header">
+        <div>
+          <h1>Katılım Bildirimi</h1>
+          <p class="event-line">İrem Gökçe'nin Kına Eğlencesi</p>
+        </div>
+        <button class="round-close" id="formClose" type="button" aria-label="Kapat">×</button>
+      </header>
+
+      <form id="rsvpForm" action="https://formspree.io/f/mojgnrwa" method="POST">
+        <label class="field-label" for="fullName">Ad Soyad</label>
+        <input id="fullName" name="Ad Soyad" type="text"
+               autocomplete="name" placeholder="Adınızı ve soyadınızı yazın" required>
+
+        <div class="attendance-options">
+          <label>
+            <input type="radio" name="Katılım" value="Katılıyorum" required>
+            <span>Katılıyorum</span>
+          </label>
+          <label>
+            <input type="radio" name="Katılım" value="Katılamıyorum" required>
+            <span>Katılamıyorum</span>
+          </label>
+        </div>
+
+        <button class="primary-button" type="submit">Gönder</button>
+        <p class="form-message" id="formMessage"></p>
+      </form>
+    </div>
+
+    <div class="success-view" id="successView" hidden>
+      <button class="round-close success-close" id="successClose" type="button" aria-label="Kapat">×</button>
+      <div class="success-mark">✓</div>
+      <h2>Katılım bildiriminiz alınmıştır.</h2>
+      <button class="primary-button" id="successBack" type="button">Davetiyeye Dön</button>
+    </div>
+  </aside>
+
+  <script src="app.js"></script>
+</body>
+</html>

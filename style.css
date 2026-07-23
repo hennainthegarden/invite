@@ -1,0 +1,476 @@
+:root{
+  --cream:#f6efe3;
+  --paper:rgba(255,250,242,.42);
+  --burgundy:#701d32;
+  --burgundy-dark:#511321;
+  --gold:#b18a43;
+  --olive:#59624c;
+  --ink:#49443d;
+  --line:rgba(255,248,232,.56);
+  --glass-shadow:0 18px 60px rgba(40,25,15,.18);
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  width:100%;
+  min-height:100%;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:Georgia,"Times New Roman",serif;
+}
+body.locked{overflow:hidden}
+button,input{font:inherit}
+button{cursor:pointer}
+
+/* Görselin tamamı görünür; arkadaki aynı görsel ekranı doldurur. */
+.image-page{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  background:#eee2cf;
+  transition:opacity .36s ease,visibility .36s ease;
+}
+.invitation-page{z-index:1}
+.courtyard-page{
+  z-index:50;
+  opacity:0;
+  visibility:hidden;
+}
+.courtyard-page.open{
+  opacity:1;
+  visibility:visible;
+}
+.image-blur-bg{
+  position:absolute;
+  inset:-26px;
+  background-position:center;
+  background-size:cover;
+  filter:blur(18px) brightness(.88) saturate(.95);
+  transform:scale(1.08);
+}
+.image-blur-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(54,34,20,.10);
+}
+.invitation-bg{background-image:url("assets/davetiye.jpg")}
+.courtyard-bg{background-image:url("assets/avlu.jpg")}
+.full-image{
+  position:relative;
+  z-index:2;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center top;
+  filter:none;
+}
+
+/* Aynı balmumu mühür iki sayfada */
+.seal-button{
+  position:fixed;
+  right:18px;
+  bottom:calc(18px + env(safe-area-inset-bottom));
+  z-index:30;
+  width:56px;
+  height:56px;
+  padding:0;
+  border:1px solid rgba(255,244,222,.44);
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 28%,#96304a 0 11%,transparent 12%),
+    radial-gradient(circle at 50% 48%,#7b2038,#5e1428 72%);
+  box-shadow:
+    0 13px 34px rgba(67,27,34,.31),
+    inset 0 2px 4px rgba(255,255,255,.25),
+    inset 0 -5px 8px rgba(47,8,19,.28);
+  transition:transform .22s ease;
+}
+.seal-button:active{transform:scale(.95)}
+.seal-button::after{
+  content:"";
+  position:absolute;
+  inset:7px;
+  border-radius:50%;
+  pointer-events:none;
+  background:linear-gradient(125deg,transparent 22%,rgba(255,226,163,.24) 42%,transparent 60%);
+  transform:translateX(-35%) rotate(-7deg);
+  opacity:.24;
+}
+.seal-key{
+  position:relative;
+  z-index:2;
+  width:36px;
+  height:36px;
+  fill:none;
+  stroke:#f7e7c8;
+  stroke-width:1.9;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 1px 0 rgba(69,18,30,.38));
+}
+.courtyard-seal{z-index:55}
+
+/* Ortak popup tasarımı */
+.glass-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:70;
+  opacity:0;
+  visibility:hidden;
+  background:rgba(34,22,16,.25);
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+  transition:opacity .28s ease,visibility .28s ease;
+}
+.glass-backdrop.open{
+  opacity:1;
+  visibility:visible;
+}
+.glass-sheet{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  z-index:80;
+  width:min(100%,680px);
+  padding:8px 14px calc(14px + env(safe-area-inset-bottom));
+  border:1px solid var(--line);
+  border-bottom:0;
+  border-radius:22px 22px 0 0;
+  background:var(--paper);
+  box-shadow:var(--glass-shadow);
+  backdrop-filter:blur(28px);
+  -webkit-backdrop-filter:blur(28px);
+  transform:translate(-50%,105%);
+  visibility:hidden;
+  transition:
+    transform .40s cubic-bezier(.22,.78,.18,1),
+    visibility .40s;
+}
+.glass-sheet.open{
+  transform:translate(-50%,0);
+  visibility:visible;
+}
+.sheet-handle{
+  width:38px;
+  height:4px;
+  margin:0 auto 16px;
+  border-radius:99px;
+  background:rgba(73,68,61,.20);
+}
+.sheet-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:16px;
+  margin-bottom:12px;
+}
+.sheet-header h1,
+.success-view h2{
+  margin:0;
+  color:var(--burgundy);
+  font-size:18px;
+  font-weight:500;
+}
+.event-line{
+  margin:6px 0 0;
+  color:#81725f;
+  font-size:11px;
+  letter-spacing:.035em;
+}
+.round-close{
+  flex:0 0 auto;
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:50%;
+  background:rgba(241,229,211,.88);
+  color:#675b49;
+  font-size:24px;
+  line-height:1;
+}
+.action-list{display:grid;gap:9px}
+.action-row{
+  width:100%;
+  min-height:62px;
+  padding:8px 12px;
+  border:1px solid rgba(177,138,67,.40);
+  border-radius:18px;
+  background:rgba(255,253,248,.56);
+  color:var(--ink);
+  text-decoration:none;
+  display:grid;
+  grid-template-columns:46px 1fr 22px;
+  align-items:center;
+  gap:11px;
+  text-align:left;
+}
+.action-icon{
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  background:rgba(244,234,216,.58);
+  color:var(--gold);
+}
+.action-icon svg{width:21px;height:24px}
+.action-copy{display:flex;flex-direction:column;gap:4px}
+.action-copy strong{
+  color:var(--olive);
+  font-size:13px;
+  font-weight:600;
+}
+.action-copy small{color:#887b68;font-size:12px}
+.chevron{color:var(--gold);font-size:25px}
+
+/* Avluda sadece geri butonu ve mühür */
+.back-button{
+  position:fixed;
+  left:16px;
+  top:calc(14px + env(safe-area-inset-top));
+  z-index:55;
+  min-height:38px;
+  padding:0 15px;
+  border:1px solid rgba(255,250,239,.64);
+  border-radius:999px;
+  background:rgba(77,42,28,.48);
+  color:#fffaf0;
+  box-shadow:0 10px 28px rgba(44,25,15,.16);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.back-button span{font-size:19px;margin-right:4px}
+
+/* Form */
+.field-label{
+  display:block;
+  margin:2px 0 8px;
+  color:#675c4c;
+  font-size:11px;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+input[type=text]{
+  width:100%;
+  height:52px;
+  padding:0 15px;
+  border:1px solid rgba(177,138,67,.60);
+  border-radius:15px;
+  outline:none;
+  background:rgba(255,253,248,.68);
+  color:var(--ink);
+}
+input[type=text]:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(177,138,67,.13);
+}
+.attendance-options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:14px;
+}
+.attendance-options label{position:relative}
+.attendance-options input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+.attendance-options span{
+  min-height:52px;
+  padding:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(177,138,67,.60);
+  border-radius:15px;
+  background:rgba(255,253,248,.68);
+  color:#645a4d;
+  text-align:center;
+}
+.attendance-options input:checked+span{
+  border-color:var(--burgundy);
+  background:var(--burgundy);
+  color:#fff;
+}
+.primary-button{
+  width:100%;
+  min-height:54px;
+  margin-top:15px;
+  border:0;
+  border-radius:15px;
+  background:var(--burgundy);
+  color:#fff;
+  letter-spacing:.06em;
+}
+.form-message{
+  min-height:18px;
+  margin:10px 0 0;
+  color:#8d682f;
+  font-size:11px;
+  text-align:center;
+}
+.success-view{
+  position:relative;
+  padding:8px 0 2px;
+  text-align:center;
+}
+.success-close{
+  position:absolute;
+  right:0;
+  top:-2px;
+}
+.success-mark{
+  width:64px;
+  height:64px;
+  margin:4px auto 17px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(177,138,67,.44);
+  border-radius:50%;
+  background:rgba(244,234,216,.88);
+  color:var(--burgundy);
+  font-size:31px;
+}
+
+@media(min-width:760px){
+  .seal-button{
+    right:max(22px,calc((100vw - 760px)/2 + 22px));
+  }
+}
+@media(max-width:420px){
+  .attendance-options{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+
+
+/* Original image ratios:
+   Invitation: 1023×1536 (0.6660)
+   Courtyard: 1021×1536 (0.6647)
+   Images are rendered at their natural ratio, never forced into 9:14.
+*/
+
+.courtyard-page .full-image{
+  object-position:center top;
+}
+
+/* V6: Main menu and RSVP are one continuous glass design system */
+.glass-sheet{
+  --panel-title-size:17px;
+  --panel-meta-size:10.5px;
+  --panel-body-size:12px;
+  --panel-control-size:12px;
+}
+
+.sheet-header h1,
+.success-view h2{
+  font-size:var(--panel-title-size);
+  line-height:1.25;
+  letter-spacing:.005em;
+}
+
+.event-line{
+  font-size:var(--panel-meta-size);
+  line-height:1.35;
+}
+
+.action-copy strong{
+  font-size:var(--panel-body-size);
+  line-height:1.25;
+}
+
+.action-copy small{
+  font-size:10px;
+  line-height:1.25;
+}
+
+.field-label{
+  font-size:10px;
+  line-height:1.2;
+}
+
+input[type=text]{
+  height:47px;
+  font-size:13px;
+}
+
+.attendance-options span{
+  min-height:47px;
+  font-size:12px;
+}
+
+.primary-button{
+  min-height:48px;
+  font-size:12px;
+}
+
+.form-sheet .sheet-header{
+  padding-bottom:12px;
+  margin-bottom:12px;
+  border-bottom:1px solid rgba(177,138,67,.24);
+}
+
+.action-sheet .sheet-header{
+  padding-bottom:12px;
+  margin-bottom:12px;
+  border-bottom:1px solid rgba(177,138,67,.24);
+}
+
+.form-sheet,
+.action-sheet{
+  background:rgba(255,250,242,.42);
+  border-color:rgba(255,248,232,.52);
+  box-shadow:0 18px 60px rgba(40,25,15,.16);
+  backdrop-filter:blur(28px);
+  -webkit-backdrop-filter:blur(28px);
+}
+
+.action-row,
+input[type=text],
+.attendance-options span{
+  background:rgba(255,253,248,.54);
+}
+
+.action-icon{
+  background:rgba(244,234,216,.56);
+}
+
+.sheet-handle{
+  background:rgba(73,68,61,.16);
+}
+
+/* V7 key seal refinement */
+.seal-button{
+  background:
+    radial-gradient(circle at 34% 27%,#913047 0 9%,transparent 10%),
+    radial-gradient(circle at 50% 50%,#792039,#5b1327 74%);
+}
+.seal-key{
+  position:relative;
+  z-index:2;
+  width:36px;
+  height:36px;
+  fill:none;
+  stroke:#f7e7c8;
+  stroke-width:1.9;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 1px 0 rgba(69,18,30,.38));
+}
+
+/* Keep both popups visually identical */
+.action-sheet,
+.form-sheet{
+  border-radius:22px 22px 0 0;
+  background:rgba(255,250,242,.42);
+  border-color:rgba(255,248,232,.52);
+  box-shadow:0 18px 60px rgba(40,25,15,.16);
+  backdrop-filter:blur(28px);
+  -webkit-backdrop-filter:blur(28px);
+}
